@@ -29,14 +29,10 @@ jobs:
           node-version: "16"
       
       - name: Install dependencies
-        run: |
-          npm install
-          npm install hexo-cli -g
+        run: npm ci
       
       - name: Build with Hexo
-        run: |
-          hexo clean
-          hexo generate
+        run: npx hexo generate
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
