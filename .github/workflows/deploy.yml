@@ -20,47 +20,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: true
-      
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-      
-      - name: Check and create necessary files
-        run: |
-          if [ ! -f package.json ]; then
-            echo '{"name":"hexo-site","version":"0.0.1","private":true,"hexo":{"version":""}}' > package.json
-          fi
-          if [ ! -f package-lock.json ]; then
-            echo '{}' > package-lock.json
-          fi
-          if [ ! -f _config.yml ]; then
-            cat << 'EOF' > _config.yml
-title: My Hexo Blog
-subtitle: ''
-description: ''
-author: John Doe
-language: en
-timezone: ''
-url: http://example.com
-permalink: :year/:month/:day/:title/
-theme: landscape
-EOF
-          fi
-      
       - name: Install dependencies
-        run: |
-          npm install
-          npm install hexo-cli -g
-      
+        run: npm install
       - name: Build with Hexo
-        run: |
-          hexo init .
-          hexo clean
-          hexo generate
-      
+        run: npx hexo generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
