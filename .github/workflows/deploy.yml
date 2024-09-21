@@ -37,15 +37,17 @@ jobs:
             echo '{}' > package-lock.json
           fi
           if [ ! -f _config.yml ]; then
-            echo "title: My Hexo Blog
-subtitle: ''
-description: ''
-author: John Doe
-language: en
-timezone: ''
-url: http://example.com
-permalink: :year/:month/:day/:title/
-theme: landscape" > _config.yml
+            cat << EOF > _config.yml
+            title: My Hexo Blog
+            subtitle: ''
+            description: ''
+            author: John Doe
+            language: en
+            timezone: ''
+            url: http://example.com
+            permalink: :year/:month/:day/:title/
+            theme: landscape
+            EOF
           fi
       
       - name: Install dependencies
