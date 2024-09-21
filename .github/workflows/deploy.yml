@@ -28,11 +28,36 @@ jobs:
         with:
           node-version: "16"
       
+      - name: Check and create necessary files
+        run: |
+          if [ ! -f package.json ]; then
+            echo '{"name":"hexo-site","version":"0.0.1","private":true,"hexo":{"version":""}}' > package.json
+          fi
+          if [ ! -f package-lock.json ]; then
+            echo '{}' > package-lock.json
+          fi
+          if [ ! -f _config.yml ]; then
+            echo 'title: My Hexo Blog
+subtitle: ""
+description: ""
+author: John Doe
+language: en
+timezone: ""
+url: http://example.com
+permalink: :year/:month/:day/:title/
+theme: landscape' > _config.yml
+          fi
+      
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install
+          npm install hexo-cli -g
       
       - name: Build with Hexo
-        run: npx hexo generate
+        run: |
+          hexo init .
+          hexo clean
+          hexo generate
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
