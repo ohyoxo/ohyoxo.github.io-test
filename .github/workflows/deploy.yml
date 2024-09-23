@@ -2,8 +2,8 @@ name: Hexo Deploy
 
 on:
   push:
-    branches:
-      - main  # 当推送到 main 分支时触发部署
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build:
